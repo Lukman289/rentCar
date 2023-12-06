@@ -8,7 +8,9 @@ class Pelanggan extends Controller
 {
 	public function index()
 	{
-		$this->view("templates/header");
+		$data['title'] = "Pelanggan";
+		$data['style'] = "pelanggan";
+		$this->view("templates/header", $data);
 		$this->view("pelanggan/index");
 		$this->view("templates/footer");
 	}
