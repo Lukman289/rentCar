@@ -31,17 +31,9 @@ body {
     align-items: center;
 }
 
-.logo {
-
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-
-}
-
 .navigation {
     margin-top: 16px;
-    margin-left: 32px;
+    margin-left: 0;
     display: flex;
     flex-direction: row;
     list-style-type: none;
@@ -129,8 +121,8 @@ body {
 /* dropdown menu */
 .dropdown__wrapper {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     padding-top: 60px;
 }
 
@@ -151,8 +143,9 @@ body {
 .list-items-with-description {
     list-style-type: none;
     display: grid;
+    flex-direction: column;
     width: 100%;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .list-items-with-description li {
@@ -181,7 +174,7 @@ body {
 
 .action-buttons {
     display: flex;
-    gap: 8px;
+    /*gap: 8px;*/
     align-items: center;
     flex-wrap: nowrap;
 }
@@ -200,7 +193,6 @@ body {
     border-radius: 6px;
     background-color: #ffffff;
     padding: 8px 16px;
-    margin-right: 10px;
 }
 
 .login:hover {

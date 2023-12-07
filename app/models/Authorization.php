@@ -25,7 +25,7 @@ class Authorization
 			$username = $_COOKIE["username"];
 
 			/*prepare our query syntax*/
-			$this->db->prepare("SELECT id_user, username, password, salt, level FROM user WHERE id_user =:id_user");
+			$this->db->prepare("SELECT id_user, username, password, salt, level FROM [user] WHERE id_user =:id_user");
 
 			/*to bind param, so param not directly used in query and bound in separated way*/
 			$this->db->bind(':id_user', $id);
@@ -47,7 +47,7 @@ class Authorization
 	public function verify(string $username, string $password, $remember = ""): array
 	{
 		/*prepare our query syntax*/
-		$this->db->prepare("SELECT id_user, username, password, salt, level FROM user WHERE username =:username");
+		$this->db->prepare("SELECT id_user, username, password, salt, level FROM [user] WHERE username =:username");
 
 		/*to escape special character*/
 		$username = $this->db->antiDbInjection($username);
@@ -65,10 +65,10 @@ class Authorization
 
 		/*when query is false because username is wrong*/
 		if (!$row) {
-			$this->fm->message("warning", "Username not Found");
+//			$this->fm->message("warning", "Username not Found");
 			$controller = "Authorization";
 			$method = "index";
-			$message = $this->fm->getFlashData("warning");
+//			$message = $this->fm->getFlashData("warning");
 			return ["controller" => $controller, "method" => $method, "errorMessage" => $message];
 		}
 
@@ -83,10 +83,10 @@ class Authorization
 		$inputPassword = $password . $salt;
 		$userPassword = password_hash(($row["password"] . $salt ), PASSWORD_DEFAULT);;
 		if (!password_verify($inputPassword, $userPassword)){
-			$this->fm->message("danger", "Password is Wrong");
+//			$this->fm->message("danger", "Password is Wrong");
 			$controller = "Authorization";
 			$method = "index";
-			return ["controller" => $controller, "method" => $method, "errorMessage" => $this->fm->getFlashData("danger")];
+			return ["controller" => $controller, "method" => $method, "errorMessage" ];
 		}
 
 		$_SESSION["username"] = $row["username"];

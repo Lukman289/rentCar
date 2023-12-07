@@ -14,46 +14,38 @@
 <body>
 <header class="menu__wrapper">
 	<div class="menu__bar">
-		<a href="http://localhost/manut_ruangbaca_ti_2d/public/Home" title="Home" aria-label="home" class="logo">
-		</a>
+        <div class="action-buttons hide">
+            <a href="<?=BASEURL?>/Authorization/index" title="Log in" class="login">Log In</a>
+        </div>
 		<nav>
-			<ul class="navigation hide">
+			<ul class="navigation">
 				<li>
-					<a href="http://localhost/manut_ruangbaca_ti_2d/public/Home" title="Customers">Katalog</a>
-				</li>
-				<li>
-					<a href="http://localhost/manut_ruangbaca_ti_2d/public/Buku" title="Docs">Buku</a>
-				</li>
-				<li>
-					<a href="http://localhost/manut_ruangbaca_ti_2d/public/Anggota" title="Templates">Anggota</a>
-				</li>
-				<li>
-					<button>Akses<i class="material-icons">expand_more</i>
-					</button>
-					<div class="dropdown__wrapper">
-						<div class="dropdown">
-							<ul class="list-items-with-description">
-								<li>
-									<div class="item-title">
-										<h3>Peminjaman</h3>
-										<p>Akses Peminjaman</p>
-									</div>
-								</li>
-								<li>
-									<div class="item-title">
-										<h3>Riwayat</h3>
-										<p>Akses Riwayat</p>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
+                    <div class="dropdown-center">
+                        <a href="<?=BASEURL?>" class="btn btn-primary">Home</a>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Kategori
+                        </button>
+                        <form action="" method="post">
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button type="submit" class="dropdown-item" value="Honda" >Honda</button>
+                            </li>
+                            <li>
+                                <button type="submit" class="dropdown-item" value="Mitsubishi">Mitsubishi</button>
+                            </li>
+                            <li>
+                                <button type="submit" class="dropdown-item" value="Toyota">Toyota</button>
+                            </li>
+                        </ul>
+                        </form>
+                    </div>
 				</li>
 			</ul>
 		</nav>
 	</div>
-	<div class="action-buttons hide">
-		<a href="<?=BASEURL?>/Authorization/index" title="Log in" class="login">Log In</a>
-	</div>
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+    </form>
 </header>
 <br>

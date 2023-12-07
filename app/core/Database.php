@@ -17,7 +17,7 @@ class Database
 		];
 
 		try {
-			$this->databaseHandler = new PDO(SQLSEVER_DSN, SQLSERVER_CONFIG["user"], SQLSERVER_CONFIG["password"], $option);
+			$this->databaseHandler = new PDO(SQLSERVER_DSN, SQLSERVER_CONFIG["user"], SQLSERVER_CONFIG["password"], $option);
 		} catch (PDOException $e) {
 			die("connection failed: " . $e->getMessage());
 		}
