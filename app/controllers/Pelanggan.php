@@ -6,7 +6,7 @@ use core\Controller;
 
 class Pelanggan extends Controller
 {
-	public function index()
+	public function index(): void
 	{
 		$data['title'] = "Pelanggan";
 		$data['style'] = "landingpage";
