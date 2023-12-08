@@ -3,14 +3,16 @@
 namespace models;
 
 use core\Database;
+use core\FlashMessage;
 
 class Authorization
 {
 	private Database $db;
+	private FlashMessage $fm;
 
 	public function __construct()
 	{
-
+		$this->fm = new FlashMessage();
 		$this->db = new Database();
 	}
 
@@ -65,28 +67,26 @@ class Authorization
 
 		/*when query is false because username is wrong*/
 		if (!$row) {
-//			$this->fm->message("warning", "Username not Found");
+			$this->fm->message("warning", "Username not Found");
 			$controller = "Authorization";
 			$method = "index";
-//			$message = $this->fm->getFlashData("warning");
+			$message = $this->fm->getFlashData("warning");
 			return ["controller" => $controller, "method" => $method, "errorMessage" => $message];
 		}
 
 		$salt = $row['salt'];
-//		$userPassword = $row['password'];
-//		$inputPassword = $password . $salt;
-//		/*checking with hash() method wit algorithm sha256, cause in our
-//		database, password is hashed with sha2_256, and to check that we
-//		can't use password verify() method with default hash algorithm*/
-//		$inputPassword = hash("sha256", $inputPassword, true);
-//		if (!($userPassword === $inputPassword))
+		$userPassword = $row['password'];
 		$inputPassword = $password . $salt;
-		$userPassword = password_hash(($row["password"] . $salt ), PASSWORD_DEFAULT);;
-		if (!password_verify($inputPassword, $userPassword)){
-//			$this->fm->message("danger", "Password is Wrong");
+		/*checking with hash() method wit algorithm sha256, cause in our
+		database, password is hashed with sha2_256, and to check that we
+		can't use password verify() method with default hash algorithm*/
+		$inputPassword = hash("sha256", $inputPassword, true);
+		if (!($userPassword === $inputPassword)){
+			$this->fm->message("danger", "Password is Wrong");
 			$controller = "Authorization";
 			$method = "index";
-			return ["controller" => $controller, "method" => $method, "errorMessage" ];
+			$message = $this->fm->getFlashData("danger");
+			return ["controller" => $controller, "method" => $method, "errorMessage"=> $message];
 		}
 
 		$_SESSION["username"] = $row["username"];

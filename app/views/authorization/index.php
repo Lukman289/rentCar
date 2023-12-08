@@ -4,13 +4,19 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="<?=BASEURL?>/css/authorization.css">
+	<link rel="stylesheet" href="<?=BASEURL?> /css/authorization.css">
 	<title><?=$data['title']?>></title>
 </head>
 
 <body>
 <div class="login-container">
 	<h2>RentCar</h2>
+	<?php
+		if (isset($_SESSION["flashMessage"])) {
+			echo($_SESSION["flashMessage"]);
+			unset($_SESSION["flashMessage"]);
+		}
+	?>
 	<form action="<?=BASEURL?>/Authorization/loginVerify" method="post">
 		<div class="form-group">
 			<label for="username">Username:</label>

@@ -4,7 +4,7 @@
 			<div class="col">
 				<form action="<?=BASEURL?>/Admin/module" method="post">
 					<div class="card" style="height: auto; width: 18rem">
-						<img src="<?=BASEURL?>/img/<?=$mobil?>.jpg" class="card-img-top" alt="" style="width: 100%; height: 55%">
+						<img src="<?=BASEURL?> /img/<?=$mobil?>.jpg" class="card-img-top" alt="" style="width: 100%; height: 55%">
 						<div class="card-body">
 							<h5 class="card-title"><?=$mobil?></h5>
 							<ul class="list-group list-group-flush">
