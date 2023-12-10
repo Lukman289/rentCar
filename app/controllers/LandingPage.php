@@ -10,7 +10,8 @@ class LandingPage extends Controller
 	{
 		$data['title'] = "Home";
 		$data['style'] = "landingpage";
-		$data['mobil'] = ['Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero'];
+		$data['mobil'] = $this->model("LandingPage")->getMobil();
+//		$data['mobil'] = ['Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero'];
 		$this->view("templates/header", $data);
 		$this->view("landingpage/index", $data);
 		$this->view("templates/footer");

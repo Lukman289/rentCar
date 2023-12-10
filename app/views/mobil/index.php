@@ -1,16 +1,17 @@
 <div class="container mt-5">
 	<div class="card mb-3">
 		<div class="row g-0">
+            <?php foreach ($data['mobil'] AS $mobil): ?>
 			<div class="col-md-4">
-				<img src="<?=BASEURL?>/img/<?=$data['mobil']?>.jpg" class="img-fluid rounded-start" alt="">
+				<img src="<?=BASEURL?>/img/<?=$mobil['model']?>.jpg" class="img-fluid rounded-start" alt="">
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">
-					<h2 class="card-title"><?=$data['mobil']?></h2>
+					<h2 class="card-title"><?=$mobil['model']?></h2>
 				</div>
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item"><small class="text-muted">Merek
-							: Contoh</small></li>
+							: <?=$mobil['model']?></small></li>
 					<li class="list-group-item"><small class="text-muted">Model
 							: Contoh</small></li>
 					<li class="list-group-item"><small class="text-muted">Tahun
@@ -23,6 +24,7 @@
 				<div class="card-body text-end">
 					<a href="<?=BASEURL?>" class="btn btn-primary"">Kembali</a>
 				</div>
+                <?php endforeach;; ?>
 			</div>
 		</div>
 	</div>

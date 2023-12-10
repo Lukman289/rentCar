@@ -11,7 +11,8 @@ class Mobil extends  Controller
 		{
 			$data['title'] = "Deskripsi";
 			$data['style'] = "landingpage";
-			$data['mobil'] = $_POST['mobil'];
+//			$data['mobil'] = $_POST['mobil'];
+			$data['mobil'] = $this->model("Mobil")->getMobil($_POST['mobil']);
 			$this->view("templates/header", $data);
 			$this->view("mobil/index", $data);
 			$this->view("templates/footer");

@@ -4,7 +4,7 @@ namespace models;
 
 use core\Database;
 
-class LandingPage
+class Mobil
 {
 	private Database $db;
 
@@ -17,11 +17,12 @@ class LandingPage
 		$this->db = new Database();
 	}
 
-	public function getMobil() {
+	public function getMobil($id) {
 		$this->db->prepare("SELECT id_mobil AS id, md.model AS model, YEAR(tahun) AS tahun, nopol, warna, 
        	harga_sewa AS harga, mk.merek AS merek FROM mobil m 
     	LEFT OUTER JOIN model md ON m.model_id = md.id_model 
-    	LEFT OUTER JOIN merek mk ON md.merek_id = mk.id_merek");
+    	LEFT OUTER JOIN merek mk ON md.merek_id = mk.id_merek WHERE m.id_mobil =:id");
+		$this->db->bind(":id", $id);
 		return $this->db->resultSet();
 	}
 }

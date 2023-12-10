@@ -1,6 +1,9 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #efefef;
+    /*background-color: #efefef;*/
+    background: url("http://localhost/rentCar/public/img/bg_login.jpg");
+    background-size: cover;
+    /*background-repeat: no-repeat;*/
     margin: 0;
     display: flex;
     align-items: center;
@@ -57,4 +60,10 @@ body {
 
 .login-button:hover {
     background-color: #2980b9;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
 }

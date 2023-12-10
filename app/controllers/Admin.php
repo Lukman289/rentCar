@@ -10,8 +10,9 @@ class Admin extends Controller
 	{
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
-		$data['mobil'] = ['Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero'];
-		$this->view("templates/header", $data);
+//		$data['mobil'] = ['Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero'];
+		$data['mobil'] = $this->model("LandingPage")->getMobil();
+		$this->view("admin/templates/header", $data);
 		$this->view("admin/index", $data);
 		$this->view("templates/footer");
 	}
@@ -22,9 +23,10 @@ class Admin extends Controller
 		{
 			$data['title'] = "Admin";
 			$data['style'] = "landingpage";
-			$data['mobil'] = $_POST['mobil'];
+//			$data['mobil'] = $_POST['mobil'];
+			$data['mobil'] = $this->model("Mobil")->getMobil($_POST['mobil']);
 			$this->view("templates/header", $data);
-			$this->view("admin/" . $_POST['page'], $data);
+			$this->view("admin/module/" . $_POST['page'], $data);
 			$this->view("templates/footer");
 		}
 	}
