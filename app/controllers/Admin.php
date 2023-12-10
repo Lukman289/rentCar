@@ -22,7 +22,12 @@ class Admin extends Controller
 		{
 			$data['title'] = "Admin";
 			$data['style'] = "landingpage";
-			$data['mobil'] = $this->model("Mobil")->getMobil($_POST['mobil']);
+			if ($_POST['mobil'] == null) {
+				$data['mobil'] = $this->model("LandingPage")->getMobil();
+			} else {
+				$data['mobil'] = $this->model("Mobil")->getMobil($_POST['mobil']);
+			}
+			$data['model'] = $this->model("Mobil")->getModel();
 			$this->view("admin/templates/header", $data);
 			$this->view("admin/module/" . $_POST['page'], $data);
 			$this->view("templates/footer");
@@ -45,6 +50,33 @@ class Admin extends Controller
 
 			$data['message'] = $this->model("Admin")->edit($data['edit']);
 			$data['mobil'] = $this->model("Mobil")->getMobil($_POST['mobil']);
+			$this->view("admin/templates/header", $data);
+			$this->view("admin/module/" . $_POST['page'], $data);
+			$this->view("templates/footer");
+		}
+	}
+
+	public function add()
+	{
+		if ($_SERVER['REQUEST_METHOD'] == "POST")
+		{
+			$data['title'] = "Admin";
+			$data['style'] = "landingpage";
+			$data['model'] = $this->model("Mobil")->getModel();
+			$data['add'] = [
+				'id_model' => $_POST['id_model'],
+				'tahun' => $_POST['tahun'],
+				'nopol' => $_POST['nopol'],
+				'warna' => $_POST['warna'],
+				'harga_sewa' => $_POST['harga'],
+				'img' => $_POST['img'],
+				'status' => $_POST['status']
+			];
+
+			$data['message'] = $this->model("Admin")->add($data['add']);
+
+			$data['mobil'] = $this->model("Mobil")->getAllMobil();
+
 			$this->view("admin/templates/header", $data);
 			$this->view("admin/module/" . $_POST['page'], $data);
 			$this->view("templates/footer");

@@ -21,16 +21,16 @@
             </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <button type="button" class="dropdown-item" name="page" value="../index">Mobil</button>
+                        <button type="submit" class="dropdown-item" name="page" value="../index">Mobil</button>
                     </li>
                     <li>
-                        <button type="button" class="dropdown-item" name="page" value="karyawan/index">Karyawan</button>
+                        <button type="submit" class="dropdown-item" name="page" value="karyawan/index">Karyawan</button>
                     </li>
                     <li>
-                        <button type="button" class="dropdown-item" name="page" value="pemesanan/index">Pemesanan</button>
+                        <button type="submit" class="dropdown-item" name="page" value="pemesanan/index">Pemesanan</button>
                     </li>
                     <li>
-                        <button type="button" class="dropdown-item" name="page" value="pelanggan/index">Pelanggan</button>
+                        <button type="submit" class="dropdown-item" name="page" value="pelanggan/index">Pelanggan</button>
                     </li>
                     <li>
                         <a href="<?=BASEURL?>" class="dropdown-item">Sign Out</a>
@@ -62,6 +62,14 @@
                 </li>
             </ul>
         </nav>
+        <div class="ms-4">
+            <!--            <form action="--><? //=BASEURL?><!--/Admin/module" method="post">-->
+            <!--                <input type="hidden" value="--><? //=$mobil['id']?><!--" name="mobil">-->
+            <form action="<?=BASEURL?>/Admin/module" method="post">
+                <input type="hidden" value="mobil/add" name="page">
+                <button type="submit" class="btn btn-primary">ADD</button>
+            </form>
+        </div>
     </div>
     <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

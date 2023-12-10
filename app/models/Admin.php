@@ -58,24 +58,24 @@ class Admin
 	public function add($addData = [])
 	{
 		/*to retrieve model_id from model to insert mobil table*/
-		$this->db->prepare("SELECT id_model FROM model WHERE model =:model");
+//		$this->db->prepare("SELECT id_model FROM model WHERE model =:model");
 		
 		/*to escape special character*/
-		$model = $this->db->antiDbInjection($addData["model"]);
+//		$model = $this->db->antiDbInjection($addData["model"]);
 
 		/*replace quoted string("''") to regular string(""), because we're using that value to bind function*/
-		$model = str_replace("'", "", $model);
+//		$model = str_replace("'", "", $model);
 
 
 		/*to bind param, so param not directly used in query and bound in separated way*/
-		$this->db->bind(":model", $model);
-		$row = $this->db->single();
+//		$this->db->bind(":model", $model);
+//		$row = $this->db->single();
 
 
 		/*insert into mobil table*/
 		$this->db->prepare("INSERT INTO mobil(model_id, tahun, nopol, warna, harga_sewa, status, img) VALUES (:model_id, :tahun, :nopol, :warna, :harga_sewa, :status, :img)");
 
-		$model_id = $this->db->antiDbInjection($row["id_model"]);
+		$model_id = $this->db->antiDbInjection($addData["id_model"]);
 		$tahun = $this->db->antiDbInjection($addData["tahun"]);
 		$nopol = $this->db->antiDbInjection($addData["nopol"]);
 		$warna = $this->db->antiDbInjection($addData["warna"]);
