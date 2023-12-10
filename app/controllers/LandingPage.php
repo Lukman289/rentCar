@@ -6,7 +6,7 @@ use core\Controller;
 
 class LandingPage extends Controller
 {
-	public function index()
+	public function index(): void
 	{
 		$data['title'] = "Home";
 		$data['style'] = "landingpage";

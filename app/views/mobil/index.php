@@ -3,7 +3,11 @@
 		<div class="row g-0">
             <?php foreach ($data['mobil'] AS $mobil): ?>
 			<div class="col-md-4">
+<<<<<<< HEAD
 				<img src="<?=BASEURL?>/img/<?=$mobil['model']?>.jpg" class="img-fluid rounded-start" alt="">
+=======
+				<img src="<?=BASEURL?> /img/<?=$data['mobil']?>.jpg" class="img-fluid rounded-start" alt="">
+>>>>>>> 9e918f254d3828d1a35fe840cf811da8c14cfa86
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">

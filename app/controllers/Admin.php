@@ -6,7 +6,7 @@ use core\Controller;
 
 class Admin extends Controller
 {
-	public function index()
+	public function index(): void
 	{
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
@@ -17,7 +17,7 @@ class Admin extends Controller
 		$this->view("templates/footer");
 	}
 
-	public function module()
+	public function module(): void
 	{
 		if ($_SERVER['REQUEST_METHOD'] == "POST")
 		{
@@ -31,7 +31,7 @@ class Admin extends Controller
 		}
 	}
 
-	public function tes()
+	public function tes(): void
 	{
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";

@@ -4,7 +4,11 @@
             <div class="col">
                 <form action="<?=BASEURL?>/Mobil" method="post">
                     <div class="card" style="height: auto; width: 18rem">
+<<<<<<< HEAD
                         <img src="<?=BASEURL?>/img/<?=$mobil['model']?>.jpg" class="card-img-top" alt="" style="width: 100%; height: 55%">
+=======
+                        <img src="<?=BASEURL?> /img/<?=$mobil?>.jpg" class="card-img-top" alt="" style="width: 100%; height: 55%">
+>>>>>>> 9e918f254d3828d1a35fe840cf811da8c14cfa86
                         <div class="card-body">
                             <h5 class="card-title"><?=$mobil['model']?></h5>
                             <ul class="list-group list-group-flush">

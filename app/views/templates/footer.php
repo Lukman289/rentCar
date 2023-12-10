@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?= BASEURL; ?>/css/footerStyle.css">
+<link rel="stylesheet" type="text/css" href="<?= BASEURL; ?> /css/footerStyle.css">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
@@ -8,7 +8,7 @@
 
 <!-- // Jquery & js -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="<?= BASEURL; ?>/js/script.js"></script>
+<script src="<?= BASEURL; ?> /js/script.js"></script>
 
 <!--<footer>-->
 <!--	<hr class="footer-break">-->

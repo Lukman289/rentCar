@@ -11,6 +11,12 @@
 <body>
 <div class="login-container">
 	<h2>RentCar</h2>
+	<?php
+		if (isset($_SESSION["flashMessage"])) {
+			echo($_SESSION["flashMessage"]);
+			unset($_SESSION["flashMessage"]);
+		}
+	?>
 	<form action="<?=BASEURL?>/Authorization/loginVerify" method="post">
 		<div class="form-group">
 			<label for="username">Username:</label>

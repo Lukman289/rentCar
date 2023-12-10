@@ -6,7 +6,7 @@ use core\Controller;
 
 class Authorization extends Controller
 {
-	public function index()
+	public function index(): void
 	{
 		$data['title'] = "Login";
 		$data['style'] = "";

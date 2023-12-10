@@ -5,7 +5,7 @@ namespace controllers;
 use core\Controller;
 class Mobil extends  Controller
 {
-	public function index()
+	public function index(): void
 	{
 		if ($_SERVER['REQUEST_METHOD'] == "POST")
 		{
