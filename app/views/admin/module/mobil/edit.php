@@ -9,8 +9,7 @@
                 <div class="card-body">
                     <h2 class="card-title"><?=$mobil['model']?></h2>
                 </div>
-<!--                <ul class="list-group list-group-flush">-->
-                <form action="">
+                <form action="<?=BASEURL?>/Admin/edit" method="post">
                     <div>
                         <label for="nopol" class="form-label">Nomor Polisi
                             <input type="text" name="nopol" class="form-control"
@@ -33,18 +32,24 @@
                         <label for="inlineRadio" class="form-label">Status
                             <br>
                             <label class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status" value="L" required>
+                                <input type="radio" class="form-check-input" name="status" value="tersedia" required checked>
                                 <label for="inlineRadio1" class="form-check-label">Tersedia</label>
                             </label>
                             <label class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status" value="P">
+                                <input type="radio" class="form-check-input" name="status" value="tidak tersedia">
                                 <label for="inlineRadio2" class="form-check-label">Tidak Tersedia</label>
                             </label>
                         </label>
                     </div>
-				<div class="card-body text-end">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-					<button type="submit" class="btn btn-danger" value="..">Cancel</button>
+                    <div class="card-body text-end">
+                    <input type="hidden" value="<?=$mobil['id']?>" name="mobil">
+                        <input type="hidden" value="../index" name="page">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                    <form action="<?=BASEURL?>/Admin/module" method="post">
+                    <input type="hidden" value="<?=$mobil['id']?>" name="mobil">
+                    <input type="hidden" value="../index" name="page">
+                    <button type="submit" class="btn btn-danger">Cancel</button>
 				</div>
                 </form>
                 <?php endforeach;?>

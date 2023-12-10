@@ -10,7 +10,6 @@ class Admin extends Controller
 	{
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
-//		$data['mobil'] = ['Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero'];
 		$data['mobil'] = $this->model("LandingPage")->getMobil();
 		$this->view("admin/templates/header", $data);
 		$this->view("admin/index", $data);
@@ -23,23 +22,33 @@ class Admin extends Controller
 		{
 			$data['title'] = "Admin";
 			$data['style'] = "landingpage";
-//			$data['mobil'] = $_POST['mobil'];
 			$data['mobil'] = $this->model("Mobil")->getMobil($_POST['mobil']);
-			$this->view("templates/header", $data);
+			$this->view("admin/templates/header", $data);
 			$this->view("admin/module/" . $_POST['page'], $data);
 			$this->view("templates/footer");
 		}
 	}
 
-	public function tes(): void
+	public function edit()
 	{
-		$data['title'] = "Admin";
-		$data['style'] = "landingpage";
-		$data['mobil'] = ['Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero'];
-		$this->view("templates/header", $data);
-		$this->view("admin/index", $data);
-		$this->view("templates/footer");
-	}
+		if ($_SERVER['REQUEST_METHOD'] == "POST")
+		{
+			$data['title'] = "Admin";
+			$data['style'] = "landingpage";
+			$data['edit'] = [
+				'nopol' => $_POST['nopol'],
+				'warna' => $_POST['warna'],
+				'harga' => $_POST['harga'],
+				'status' => $_POST['status'],
+				'id_mobil' => $_POST['mobil']
+			];
 
+			$data['message'] = $this->model("Admin")->edit($data['edit']);
+			$data['mobil'] = $this->model("Mobil")->getMobil($_POST['mobil']);
+			$this->view("admin/templates/header", $data);
+			$this->view("admin/module/" . $_POST['page'], $data);
+			$this->view("templates/footer");
+		}
+	}
 
 }

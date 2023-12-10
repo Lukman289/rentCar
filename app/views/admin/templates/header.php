@@ -15,22 +15,22 @@
 <header class="menu__wrapper">
     <div class="menu__bar">
         <div class="dropdown-left">
+            <form action="<?=BASEURL?>/Admin/module" method="post">
             <button class="btn btn-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 rentCar
             </button>
-            <form action="<?=BASEURL?>/Admin/module" method="post">
                 <ul class="dropdown-menu">
                     <li>
-                        <button type="button" class="dropdown-item" value="..">Mobil</button>
+                        <button type="button" class="dropdown-item" name="page" value="../index">Mobil</button>
                     </li>
                     <li>
-                        <button type="button" class="dropdown-item" value="karyawan/index">Karyawan</button>
+                        <button type="button" class="dropdown-item" name="page" value="karyawan/index">Karyawan</button>
                     </li>
                     <li>
-                        <button type="button" class="dropdown-item" value="pemesanan/index">Pemesanan</button>
+                        <button type="button" class="dropdown-item" name="page" value="pemesanan/index">Pemesanan</button>
                     </li>
                     <li>
-                        <button type="button" class="dropdown-item" value="pelanggan/index">Pelanggan</button>
+                        <button type="button" class="dropdown-item" name="page" value="pelanggan/index">Pelanggan</button>
                     </li>
                     <li>
                         <a href="<?=BASEURL?>" class="dropdown-item">Sign Out</a>
@@ -42,7 +42,6 @@
             <ul class="navigation">
                 <li>
                     <div class="dropdown-center">
-<!--                        <a href="--><?//=BASEURL?><!--" class="btn btn-primary">Home</a>-->
                         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Kategori
                         </button>
@@ -70,6 +69,3 @@
     </form>
 </header>
 <br>
-
-<!--</nav>-->
-<!--<br>-->

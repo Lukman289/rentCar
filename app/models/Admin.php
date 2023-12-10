@@ -26,7 +26,7 @@ class Admin
 
 		$nopol = $this->db->antiDbInjection($editData["nopol"]);
 		$warna = $this->db->antiDbInjection($editData["warna"]);
-		$harga_sewa = $this->db->antiDbInjection($editData["harga_sewa"]);
+		$harga_sewa = $this->db->antiDbInjection($editData["harga"]);
 		$status = $this->db->antiDbInjection($editData["status"]);
 		$id_mobil = $this->db->antiDbInjection($editData["id_mobil"]);
 
