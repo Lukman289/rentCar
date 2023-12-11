@@ -18,7 +18,7 @@ class Mobil
 	}
 
 	public function getAllMobil() {
-		$this->db->prepare("SELECT id_mobil AS id, md.model AS model, YEAR(tahun) AS tahun, nopol, warna, 
+		$this->db->prepare("SELECT id_mobil , md.model AS model, YEAR(tahun) AS tahun, nopol, warna, 
        	harga_sewa AS harga, mk.merek AS merek FROM mobil m 
     	LEFT OUTER JOIN model md ON m.model_id = md.id_model 
     	LEFT OUTER JOIN merek mk ON md.merek_id = mk.id_merek");
@@ -26,7 +26,7 @@ class Mobil
 	}
 
 	public function getMobil($id) {
-		$this->db->prepare("SELECT id_mobil AS id, md.model AS model, YEAR(tahun) AS tahun, nopol, warna, 
+		$this->db->prepare("SELECT id_mobil , md.model AS model, YEAR(tahun) AS tahun, nopol, warna, 
        	harga_sewa AS harga, mk.merek AS merek FROM mobil m 
     	LEFT OUTER JOIN model md ON m.model_id = md.id_model 
     	LEFT OUTER JOIN merek mk ON md.merek_id = mk.id_merek WHERE m.id_mobil =:id");
@@ -38,5 +38,11 @@ class Mobil
 		$this->db->prepare("SELECT id_model, model, merek, nama FROM model md JOIN merek mk ON md.merek_id = mk.id_merek
 		JOIN kategori k ON k.id_kategori = md.kategori_id");
 		return $this->db->resultSet();
+	}
+
+	public function delete($id_mobil) {
+		$this->db->prepare("DELETE FROM mobil WHERE id_mobil=:id_mobil");
+		$this->db->bind(":id_mobil", $id_mobil);
+		return $this->db->execute();
 	}
 }

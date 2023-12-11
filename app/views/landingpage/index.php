@@ -16,7 +16,7 @@
                                 </li>
                             </ul>
                             <div class="card-body text-end">
-                                <button type="submit" value="<?=$mobil['id']?>" name="mobil" class="btn btn-outline-info">Lihat</button>
+                                <button type="submit" value="<?=$mobil['id_mobil']?>" name="mobil" class="btn btn-outline-info">Lihat</button>
                             </div>
                         </div>
                     </div>

@@ -73,7 +73,7 @@ class Admin
 
 
 		/*insert into mobil table*/
-		$this->db->prepare("INSERT INTO mobil(model_id, tahun, nopol, warna, harga_sewa, status, img) VALUES (:model_id, :tahun, :nopol, :warna, :harga_sewa, :status, :img)");
+		$this->db->prepare("INSERT INTO mobil(model_id, tahun, nopol, warna, harga_sewa, status) VALUES (:model_id, :tahun, :nopol, :warna, :harga_sewa, :status)");
 
 		$model_id = $this->db->antiDbInjection($addData["id_model"]);
 		$tahun = $this->db->antiDbInjection($addData["tahun"]);
@@ -81,7 +81,7 @@ class Admin
 		$warna = $this->db->antiDbInjection($addData["warna"]);
 		$harga_sewa = $this->db->antiDbInjection($addData["harga_sewa"]);
 		$status = $this->db->antiDbInjection($addData["status"]);
-		$img = $this->db->antiDbInjection($addData["img"]);
+//		$img = $this->db->antiDbInjection($addData["img"]);
 
 		/*replace quoted string("''") to regular string(""), because we're using that value to bind function*/
 		$model_id = str_replace("'", "", $model_id);
@@ -90,7 +90,7 @@ class Admin
 		$warna = str_replace("'", "", $warna);
 		$harga_sewa = str_replace("'", "", $harga_sewa);
 		$status = str_replace("'", "", $status);
-		$img = str_replace("'", "", $img);
+//		$img = str_replace("'", "", $img);
 
 		/*to bind param, so param not directly used in query and bound in separated way*/
 		$this->db->bind(':model_id', $model_id);
@@ -99,7 +99,7 @@ class Admin
 		$this->db->bind(':warna', $warna);
 		$this->db->bind(':harga_sewa', $harga_sewa);
 		$this->db->bind(':status', $status);
-		$this->db->bind(':img', $img);
+//		$this->db->bind(':img', $img);
 
 		$isInsertSuccess = $this->db->execute();
 		$message = null;

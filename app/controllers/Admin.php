@@ -10,7 +10,7 @@ class Admin extends Controller
 	{
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
-		$data['mobil'] = $this->model("LandingPage")->getMobil();
+		$data['mobil'] = $this->model("Mobil")->getAllMobil();
 		$this->view("admin/templates/header", $data);
 		$this->view("admin/index", $data);
 		$this->view("templates/footer");
@@ -23,13 +23,22 @@ class Admin extends Controller
 			$data['title'] = "Admin";
 			$data['style'] = "landingpage";
 			if ($_POST['mobil'] == null) {
-				$data['mobil'] = $this->model("LandingPage")->getMobil();
+				$data['mobil'] = $this->model("Mobil")->getAllMobil();
 			} else {
 				$data['mobil'] = $this->model("Mobil")->getMobil($_POST['mobil']);
 			}
+
 			$data['model'] = $this->model("Mobil")->getModel();
 			$this->view("admin/templates/header", $data);
-			$this->view("admin/module/" . $_POST['page'], $data);
+			if ($_POST['page'] == 'delete') {
+				$data['delete'] = $this->model("Mobil")->delete($_POST['mobil']);
+				$_POST['page'] = '../index';
+				$data['mobil'] = $this->model("Mobil")->getAllMobil();
+				$this->view("admin/module/" . $_POST['page'], $data);
+			} else {
+				$this->view("admin/module/" . $_POST['page'], $data);
+			}
+//			unset($_POST['mobil']);
 			$this->view("templates/footer");
 		}
 	}
@@ -69,11 +78,14 @@ class Admin extends Controller
 				'nopol' => $_POST['nopol'],
 				'warna' => $_POST['warna'],
 				'harga_sewa' => $_POST['harga'],
-				'img' => $_POST['img'],
+//				'img' => null,
 				'status' => $_POST['status']
 			];
 
-			$data['message'] = $this->model("Admin")->add($data['add']);
+			if ($_POST['add'] == 1) {
+				$data['message'] = $this->model("Admin")->add($data['add']);
+			}
+
 
 			$data['mobil'] = $this->model("Mobil")->getAllMobil();
 

@@ -20,8 +20,8 @@
                                 </li>
                             </ul>
 							<div class="card-body text-end">
-                                <input type="hidden" value="<?=$mobil['id']?>" name="mobil">
-								<button type="button" value="<?=$mobil?>" name="page" class="btn btn-outline-danger">Delete</button>
+                                <input type="hidden" value="<?=$mobil['id_mobil']?>" name="mobil">
+								<button type="submit" value="delete" name="page" class="btn btn-outline-danger">Delete</button>
 								<button type="submit" value="mobil/edit" name="page" class="btn btn-outline-primary">Edit</button>
 							</div>
 						</div>

@@ -10,9 +10,23 @@ class Pelanggan extends Controller
 	{
 		$data['title'] = "Pelanggan";
 		$data['style'] = "landingpage";
-		$data['mobil'] = ['Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero', 'Fortuner', 'Avanza', 'Pajero'];
+		$data['mobil'] = $this->model("Mobil")->getAllMobil();
 		$this->view("templates/header", $data);
 		$this->view("pelanggan/index", $data);
 		$this->view("templates/footer");
+	}
+
+	public function module()
+	{
+		if ($_SERVER['REQUEST_METHOD'] == "POST")
+		{
+			$data['title'] = "Deskripsi";
+			$data['style'] = "landingpage";
+//			$data['mobil'] = $_POST['mobil'];
+			$data['mobil'] = $this->model("Mobil")->getMobil($_POST['mobil']);
+			$this->view("templates/header", $data);
+			$this->view("pelanggan/" . $_POST['page'], $data);
+			$this->view("templates/footer");
+		}
 	}
 }

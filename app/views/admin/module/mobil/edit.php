@@ -42,16 +42,13 @@
                         </label>
                     </div>
                     <div class="card-body text-end">
-                    <input type="hidden" value="<?=$mobil['id']?>" name="mobil">
+                        <input type="hidden" value="<?=$mobil['id_mobil']?>" name="mobil">
                         <input type="hidden" value="../index" name="page">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                    <form action="<?=BASEURL?>/Admin/module" method="post">
-                    <input type="hidden" value="<?=$mobil['id']?>" name="mobil">
-                    <input type="hidden" value="../index" name="page">
-                    <button type="submit" class="btn btn-danger">Cancel</button>
+                        <a href="<?=BASEURL?>/Admin/index" class="btn btn-danger">Cancel</a>
+                    </div>
+                    </form>
 				</div>
-                </form>
                 <?php endforeach;?>
 			</div>
 		</div>

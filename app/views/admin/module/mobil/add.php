@@ -60,6 +60,7 @@
                 </div>
 				<div class="card-body text-end">
                     <input type="hidden" name="page" value="../index">
+                    <input type="hidden" name="add" value= "1">
 					<button type="submit" class="btn btn-success"">ADD</button>
 				</div>
             </div>
