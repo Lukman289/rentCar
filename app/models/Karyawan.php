@@ -5,7 +5,7 @@ namespace models;
 use core\Database;
 use core\FlashMessage;
 
-class Pelanggan
+class Karyawan
 {
 	private Database $db;
 	private FlashMessage $fm;
@@ -20,9 +20,9 @@ class Pelanggan
 		unset($this->db);
 	}
 
-	public function getAllPelanggan()
+	public function getAllKaryawan()
 	{
-		$this->db->prepare("SELECT * FROM pelanggan p JOIN [user] u ON p.user_id = u.id_user");
+		$this->db->prepare("SELECT * FROM karyawan k JOIN [user] u ON k.user_id = u.id_user");
 		return $this->db->resultSet();
 	}
 }

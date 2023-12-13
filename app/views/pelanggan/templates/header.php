@@ -20,7 +20,7 @@
             </button>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="<?=BASEURL?>/Authorization/index" class="dropdown-item">Log In</a>
+                    <a href="<?=BASEURL?>/Authorization/logout" class="dropdown-item">Sign Out</a>
                 </li>
             </ul>
         </div>
@@ -28,7 +28,7 @@
 			<ul class="navigation">
 				<li>
                     <div class="dropdown-center">
-                        <a href="<?=BASEURL?>" class="btn btn-primary">Home</a>
+                        <a href="<?=BASEURL?>/Pelanggan/index" class="btn btn-primary">Home</a>
                         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Kategori
                         </button>

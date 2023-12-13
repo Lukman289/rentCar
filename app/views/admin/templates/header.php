@@ -21,19 +21,19 @@
             </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <button type="submit" class="dropdown-item" name="page" value="../index">Mobil</button>
+                        <a href="<?=BASEURL?>/Admin/pageMobil" class="dropdown-item" name="page" value="../index">Mobil</a>
                     </li>
                     <li>
-                        <button type="submit" class="dropdown-item" name="page" value="karyawan/index">Karyawan</button>
+                        <a href="<?=BASEURL?>/Admin/pageKaryawan" class="dropdown-item" name="page" value="../index">Karyawan</a>
                     </li>
                     <li>
-                        <button type="submit" class="dropdown-item" name="page" value="pemesanan/index">Pemesanan</button>
+                        <a href="<?=BASEURL?>/Admin/pagePemesanan" class="dropdown-item" name="page" value="../index">Pemesanan</a>
                     </li>
                     <li>
-                        <button type="submit" class="dropdown-item" name="page" value="pelanggan/index">Pelanggan</button>
+                        <a href="<?=BASEURL?>/Admin/pagePelanggan" class="dropdown-item" name="page" value="../index">Pelanggan</a>
                     </li>
                     <li>
-                        <a href="<?=BASEURL?>" class="dropdown-item">Sign Out</a>
+                        <a href="<?=BASEURL?>/Authorization/logout" class="dropdown-item">Sign Out</a>
                     </li>
                 </ul>
             </form>
@@ -63,11 +63,11 @@
             </ul>
         </nav>
         <div class="ms-4">
-            <!--            <form action="--><? //=BASEURL?><!--/Admin/module" method="post">-->
-            <!--                <input type="hidden" value="--><? //=$mobil['id']?><!--" name="mobil">-->
             <form action="<?=BASEURL?>/Admin/module" method="post">
                 <input type="hidden" value="mobil/add" name="page">
-                <button type="submit" class="btn btn-primary">ADD</button>
+                <?php if ($data['add'] != "Pemesanan") { ?>
+                <a href="<?=BASEURL?>/Admin/pageAdd<?=$data['add']?>" class="btn btn-primary">ADD</a>
+                <?php } ?>
             </form>
         </div>
     </div>

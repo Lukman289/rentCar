@@ -1,4 +1,10 @@
-<div class="container mt-5">
+<style>
+    .containerM {
+        margin: 4rem 8rem 2rem 8rem;
+    }
+</style>
+
+<div class="containerM">
     <div class="row row-cols-1 row-cols-md-auto g-4">
 		<?php foreach ($data['mobil'] as $mobil) :?>
             <div class="col">

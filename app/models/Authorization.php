@@ -93,6 +93,7 @@ class Authorization
 		}
 
 		$_SESSION["username"] = $row["username"];
+		$_SESSION["level"] = $row["level"];
 
 		if ($remember) {
 			setcookie("id", $row["id_user"], time() + 300, "/");

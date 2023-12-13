@@ -1,19 +1,17 @@
 <div class="container mx-auto">
     <div class="card" style="width: 18rem">
-<!--        <div class="row gx-0">-->
-            <form action="<?=BASEURL?>/Admin/add" method="post">
+        <form action="<?=BASEURL?>/Admin/addMobil" method="post">
 			<div class="col-md-12">
                 <div>
                     <label for="model" class="form-label">Model
-<!--                        <input type="text" name="nopol" class="form-control"-->
-<!--                               value="" required>-->
+                        <select name="id_model" class="form-select">
+                            <option value="" selected>Pilih Model</option>
+							<?php foreach ($data['model'] as $model): ?>
+                                <option value="<?= $model['id_model'] ?>"><?= $model['merek'] ?>
+                                    : <?= $model['model'] ?></option>
+							<?php endforeach; ?>
+                        </select>
                     </label>
-                    <select name="id_model" class="form-select">
-                        <option value="" selected>Pilih Model</option>
-                    <?php foreach ($data['model'] AS $model): ?>
-                    <option value="<?=$model['id_model']?>"><?=$model['merek']?>: <?=$model['model']?></option>
-                    <?php endforeach; ?>
-                    </select>
                 </div>
                 <div>
                     <label for="tahun" class="form-label">Tahun
@@ -64,8 +62,8 @@
 					<button type="submit" class="btn btn-success"">ADD</button>
 				</div>
             </div>
-            </form>
-		</div>
-	</div>
+        </form>
+    </div>
+</div>
 
 

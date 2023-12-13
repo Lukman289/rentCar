@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <h2 class="card-title"><?=$mobil['model']?></h2>
                 </div>
-                <form action="<?=BASEURL?>/Admin/edit" method="post">
+                <form action="<?=BASEURL?>/Admin/editMobil" method="post">
                     <div>
                         <label for="nopol" class="form-label">Nomor Polisi
                             <input type="text" name="nopol" class="form-control"
@@ -47,12 +47,12 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <a href="<?=BASEURL?>/Admin/index" class="btn btn-danger">Cancel</a>
                     </div>
-                    </form>
-				</div>
-                <?php endforeach;?>
-			</div>
-		</div>
-	</div>
+                </form>
+            </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+</div>
 
 
 
