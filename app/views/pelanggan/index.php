@@ -6,7 +6,17 @@
 
 <div class="containerM">
     <div class="row row-cols-1 row-cols-md-auto g-4">
-		<?php foreach ($data['mobil'] as $mobil) :?>
+	    <?php
+	    if ($data['mobil'] == null ) { ?>
+            <div class="col" style="margin: auto">
+                <h2>
+                    <strong>
+                        Data Mobil Kosong!!!
+                    </strong>
+                </h2>
+            </div>
+	    <?php }
+	    foreach ($data['mobil'] as $mobil) :?>
             <div class="col">
                 <div class="card" style="height: auto; width: 18rem">
                     <img src="<?=BASEURL?>/img/<?=$mobil['model']?>.jpg" class="card-img-top" alt="" style="width: 100%; height: 55%">

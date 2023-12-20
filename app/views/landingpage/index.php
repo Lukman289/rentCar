@@ -6,7 +6,17 @@
 
 <div class="containerM">
     <div class="row row-cols-1 row-cols-md-auto g-4">
-		<?php foreach ($data['mobil'] as $mobil) :?>
+		<?php
+        if ($data['mobil'] == null ) { ?>
+            <div class="col" style="margin: auto">
+                <h2>
+                    <strong>
+                        Data Mobil Kosong!!!
+                    </strong>
+                </h2>
+            </div>
+        <?php }
+        foreach ($data['mobil'] as $mobil) :?>
             <div class="col">
                 <form action="<?=BASEURL?>/Mobil" method="post">
                     <div class="card" style="height: auto; width: 18rem">
@@ -18,7 +28,7 @@
                                 </li>
                                 <li class="list-group-item"><small class="text-muted"><?=$mobil['tahun']?></small>
                                 </li>
-                                <li class="list-group-item"><small class="text-muted"><?=$mobil['nopol']?></small>
+                                <li class="list-group-item"><small class="text-muted">Rp.<?=$mobil['harga']?></small>
                                 </li>
                             </ul>
                             <div class="card-body text-end">

@@ -1,5 +1,9 @@
 <div class="container mt-5">
 <table class="table">
+    <?php if (isset($_SESSION['flashMessage']['karyawan'])) {
+        echo $_SESSION['flashMessage']['karyawan'];
+        unset($_SESSION['flashMessage']['karyawan']);
+    } ?>
     <thead>
     <tr>
         <th scope="col">No</th>
@@ -26,9 +30,11 @@
                             class="btn btn-primary">EDIT
                     </button>
                 </form>
-                <form action="<?= BASEURL ?>/Admin/deleteKaryawan" method="post">
-                    <button class="btn btn-danger"
-                            onclick="confirm('Hapus Data Dosen?');">DELETE
+                <form action="<?= BASEURL ?>/Admin/deleteUser" method="post" onsubmit=" return confirm('Lanjutkan Hapus Karyawan?')">
+                    <input type="hidden" name="user" value="karyawan">
+                    <input type="hidden" name="idName" value="id_karyawan">
+                    <button type="submit" class="btn btn-danger"
+                            name="idData" value="<?= $kry['id_karyawan']?>">DELETE
                     </button>
                 </form>
             </div>

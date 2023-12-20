@@ -1,5 +1,5 @@
 <div class="container mx-auto">
-    <div class="card" style="width: 18rem">
+    <div class="card" style="width: 18rem; margin: 5rem auto 5rem auto;">
         <form action="<?=BASEURL?>/Admin/addMobil" method="post">
 			<div class="col-md-12">
                 <div>
@@ -39,7 +39,7 @@
                 </div>
                 <div>
                     <label for="image" class="form-label">Foto Kendaraan
-                        <input type="file" name="img" class="form-control"
+                        <input type="file" name="img" accept=".jpg, .jpeg" class="form-control"
                                value="">
                     </label>
                 </div>

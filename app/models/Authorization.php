@@ -75,16 +75,16 @@ class Authorization
 		}
 
 		$salt = $row['salt'];
-//		$userPassword = $row['password'];
-//		$inputPassword = $password . $salt;
+		$userPassword = $row['password'];
+		$inputPassword = $password . $salt;
 		/*checking with hash() method wit algorithm sha256, cause in our
 		database, password is hashed with sha2_256, and to check that we
 		can't use password verify() method with default hash algorithm*/
-//		$inputPassword = hash("sha256", $inputPassword, true);
-//		if (!($userPassword === $inputPassword))
-		$inputPassword = $password . $salt;
-		$userPassword = password_hash(($row["password"] . $salt ), PASSWORD_DEFAULT);;
-		if (!password_verify($inputPassword, $userPassword)){
+		$inputPassword = hash("sha256", $inputPassword, true);
+		if (!(hash_equals($userPassword, $inputPassword))) {
+//		$inputPassword = $password . $salt;
+//		$userPassword = password_hash(($row["password"] . $salt ), PASSWORD_DEFAULT);;
+//		if (!password_verify($inputPassword, $userPassword)){
 			$this->fm->message("danger", "Password is Wrong");
 			$controller = "Authorization";
 			$method = "index";
@@ -107,7 +107,9 @@ class Authorization
 
 	public function logout()
 	{
-
+		session_unset();
+		session_destroy();
+		header("Location: " . BASEURL);
 	}
 
 }

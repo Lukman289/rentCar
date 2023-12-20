@@ -48,7 +48,7 @@ class Admin
 			$this->fm->message("success", "edit data mobil");
 			$message = $this->fm->getFlashData("success");
 		} else {
-			$this->fm->message("danger", "in edit data dosen");
+			$this->fm->message("danger", "in edit data mobil");
 			$message =  $this->fm->getFlashData("danger");
 		}
 		return $message;
@@ -67,14 +67,6 @@ class Admin
 		$harga_sewa = $this->db->antiDbInjection($addData["harga_sewa"]);
 		$status = $this->db->antiDbInjection($addData["status"]);
 
-		/*replace quoted string("''") to regular string(""), because we're using that value to bind function*/
-		$model_id = str_replace("'", "", $model_id);
-		$tahun = str_replace("'", "", $tahun);
-		$nopol = str_replace("'", "", $nopol);
-		$warna = str_replace("'", "", $warna);
-		$harga_sewa = str_replace("'", "", $harga_sewa);
-		$status = str_replace("'", "", $status);
-
 		/*to bind param, so param not directly used in query and bound in separated way*/
 		$this->db->bind(':model_id', $model_id);
 		$this->db->bind(':tahun', $tahun);
@@ -89,7 +81,7 @@ class Admin
 			$this->fm->message("success", "adding data mobil");
 			$message = $this->fm->getFlashData("success");
 		} else {
-			$this->fm->message("danger", "in adding data dosen");
+			$this->fm->message("danger", "in adding data mobil");
 			$message =  $this->fm->getFlashData("danger");
 		}
 		return $message;
@@ -99,7 +91,37 @@ class Admin
 	{
 		$this->db->prepare("DELETE FROM mobil WHERE id_mobil=:id_mobil");
 		$this->db->bind(":id_mobil", $id_mobil);
-		return $this->db->execute();
+		$isInsertSuccess = $this->db->execute();
+		$message = null;
+		if ($isInsertSuccess) {
+			$this->fm->message("success", "delete data mobil");
+			$message = $this->fm->getFlashData("success");
+		} else {
+			$this->fm->message("danger", "in delete data mobil");
+			$message =  $this->fm->getFlashData("danger");
+		}
+		return $message;
+	}
+
+	public function addUser($data = [])
+	{
+		$this->db->prepare("INSERT INTO [user] (username, password, level) VALUES (:username, HASHBYTES('sha2_256', :password), :level)");
+
+		$username = $this->db->antiDbInjection($data['username']);
+		$password = $this->db->antiDbInjection($data['password']);
+		$level = $this->db->antiDbInjection($data['level']);
+
+		$password = password_hash($password, PASSWORD_BCRYPT);
+
+		$username = str_replace("'", "", $username);
+		$password = str_replace("'", "", $password);
+		$level = str_replace("'", "", $level);
+
+		$this->db->bind(":username", $username);
+		$this->db->bind(":password", $password);
+		$this->db->bind(":level", $level);
+
+		$this->db->execute();
 	}
 
 	public function edit($tableName, $editData, $fkData = [])
@@ -107,7 +129,6 @@ class Admin
 		$isUpdateFkSuccess = null;
 		$isUpdateSuccess = null;
 		if (isset($fkData)) {
-			/*to avoid update fk when fk data from form is empty*/
 			foreach ($fkData as $column => $value) {
 				$conditionEdit = "";
 				foreach ($value as $col => $val) {
@@ -119,12 +140,12 @@ class Admin
 						unset($value['conditionEdit']);
 					}
 				}
-				$isUpdateFkSuccess =  $this->db->updates("$column", $value, $conditionEdit);
+				$isUpdateFkSuccess =  $this->db->updates("[$column]", $value, $conditionEdit);
 			}
 		}
 
 		if ($isUpdateFkSuccess) {
-			$conditionEdit = "nama = '" . $editData['condition'] . "'";
+			$conditionEdit = "user_id = '" . $editData['condition'] . "'";
 			unset($editData['condition']);
 			$isUpdateSuccess = $this->db->updates($tableName, $editData, $conditionEdit);
 		}
@@ -140,14 +161,18 @@ class Admin
 		return $message;
 	}
 
+
 	public function add($tableName, $addData = [], $fkData = [])
 	{
 		$isInsertFkSuccess = null;
 		$isInsertSuccess = null;
 		if (isset($fkData)) {
-			foreach ($fkData as $elm => $value) {
-				$isInsertFkSuccess =  $this->db->inserts($elm, $value);
-			}
+			$userData = $fkData['user'];
+			$username = $this->db->antiDbInjection($userData['username']);
+			$password = $this->db->antiDbInjection($userData['password']);
+			$level = $this->db->antiDbInjection($userData['level']);
+			$this->db->prepare("INSERT INTO [user](username, password, level) VALUES ('$username', CONVERT(varbinary(256), '$password'), '$level')");
+			$isInsertFkSuccess = $this->db->execute();
 		}
 
 
@@ -165,5 +190,57 @@ class Admin
 			$message =  $this->fm->getFlashData("warning");
 		}
 		return $message;
+	}
+
+	public function delete($tableName, $idName, $idData)
+	{
+		$idData = intval($idData);
+		$this->db->prepare("DELETE FROM $tableName WHERE $idName =:$idName");
+		$this->db->bind(":$idName", $idData);
+		$isDeleteSuccess = $this->db->execute();
+
+		$message = null;
+		if ($isDeleteSuccess) {
+			$this->fm->message("success", "delete data $tableName");
+			$message = $this->fm->getFlashData("success");
+		} else {
+			$this->fm->message("warning", "error occur in delete data $tableName");
+			$message =  $this->fm->getFlashData("warning");
+		}
+		return $message;
+	}
+
+	public function getAllPemesanan(): array
+	{
+		$this->db->prepare("SELECT pg.nama, id_pemesanan, model, tanggal_pemesanan, tanggal_pengembalian, jumlah_pembayaran FROM pemesanan p LEFT OUTER JOIN mobil m ON p.mobil_id = m.id_mobil 
+    	LEFT OUTER JOIN model md ON m.model_id = md.id_model
+		LEFT OUTER JOIN pelanggan pg ON p.pelanggan_id = pg.id_pelanggan");
+		return $this->db->resultSet();
+	}
+
+	public function getAllKaryawan()
+	{
+		$this->db->prepare("SELECT * FROM karyawan k JOIN [user] u ON k.user_id = u.id_user");
+		return $this->db->resultSet();
+	}
+
+	public function getAllPelanggan()
+	{
+		$this->db->prepare("SELECT * FROM pelanggan p JOIN [user] u ON p.user_id = u.id_user");
+		return $this->db->resultSet();
+	}
+
+	public function getKaryawan($id_karyawan)
+	{
+		$this->db->prepare("SELECT * FROM karyawan k JOIN [user] u ON k.user_id = u.id_user WHERE id_karyawan=:id_karyawan");
+		$this->db->bind(":id_karyawan", $id_karyawan);
+		return $this->db->single();
+	}
+
+	public function getPelanggan($id_pelanggan)
+	{
+		$this->db->prepare("SELECT * FROM pelanggan p JOIN [user] u ON p.user_id = u.id_user WHERE id_pelanggan=:id_pelanggan");
+		$this->db->bind(":id_pelanggan", $id_pelanggan);
+		return $this->db->single();
 	}
 }

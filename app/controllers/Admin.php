@@ -11,41 +11,58 @@ class Admin extends Controller
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
 		$data['add'] = "Mobil";
+		$data['kategori'] = $this->model("Mobil")->getAllKategori();
 		$data['mobil'] = $this->model("Mobil")->getAllMobil();
 		$this->view("admin/templates/header", $data);
 		$this->view("admin/index", $data);
 		$this->view("templates/footer");
 	}
 
+
+	public function sorting()
+	{
+		if ($_SERVER['REQUEST_METHOD'] == "POST") {
+			$_SESSION['admin']['kategori_id'] = $_POST['kategori_id'];
+			header("location: " . BASEURL . "/Admin/sorting");
+		} else {
+			$data['title'] = "Admin";
+			$data['style'] = "landingpage";
+			$data['add'] = "Mobil";
+			$kategori = $_SESSION['admin']['kategori_id'];
+			$data['kategori'] = $this->model("Mobil")->getAllKategori();
+			$data['mobil'] = $this->model("Mobil")->getMobilFromKategori($kategori);
+			$this->view("admin/templates/header", $data);
+			$this->view("admin/index", $data);
+			$this->view("templates/footer");
+		}
+	}
 
 	/*Halaman Mobil*/
-	public function pageMobil()
-	{
-		$data['title'] = "Admin";
-		$data['style'] = "landingpage";
-		$data['add'] = "Mobil";
-		$data['mobil'] = $this->model("Mobil")->getAllMobil();
-		$this->view("admin/templates/header", $data);
-		$this->view("admin/index", $data);
-		$this->view("templates/footer");
-	}
-
 	public function pageEditMobil()
 	{
-		$data['title'] = "Admin";
-		$data['style'] = "landingpage";
-		$data['mobil'] = $this->model("Mobil")->getMobil($_POST['id_mobil']);
-		$this->view("admin/templates/header", $data);
-		$this->view("admin/module/mobil/edit", $data);
-		$this->view("templates/footer");
+		if ($_SERVER['REQUEST_METHOD'] == "POST") {
+			$_SESSION['admin']['id_mobil'] = $_POST['id_mobil'];
+			header("location: " . BASEURL . "/Admin/pageEditMobil");
+		} else {
+			$data['title'] = "Admin";
+			$data['style'] = "landingpage";
+			$data['add'] = "Mobil";
+			$id_mobil = $_SESSION['admin']['id_mobil'];
+			$data['kategori'] = $this->model("Mobil")->getAllKategori();
+			$data['mobil'] = $this->model("Mobil")->getMobil($id_mobil);
+			$this->view("admin/templates/header", $data);
+			$this->view("admin/module/mobil/edit", $data);
+			$this->view("templates/footer");
+		}
 	}
 
 	public function pageAddMobil()
 	{
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
-		$data['mobil'] = $this->model("Mobil")->getMobil($_POST['id_mobil']);
-		$data['model'] = $this->model("Mobil")->getModel();
+		$data['add'] = "Mobil";
+		$data['kategori'] = $this->model("Mobil")->getAllKategori();
+		$data['model'] = $this->model("Mobil")->getAllModel();
 		$this->view("admin/templates/header", $data);
 		$this->view("admin/module/mobil/add", $data);
 		$this->view("templates/footer");
@@ -65,7 +82,7 @@ class Admin extends Controller
 				'id_mobil' => $_POST['mobil']
 			];
 
-			$_SESSION["flashMessage"]["mobil"] = $this->model("Admin")->edit($data['edit']);
+			$_SESSION["flashMessage"]["mobil"] = $this->model("Admin")->editMobil($data['edit']);
 			header("location: " . BASEURL . "/Admin/index");
 		}
 	}
@@ -84,7 +101,7 @@ class Admin extends Controller
 				'harga_sewa' => $_POST['harga'],
 				'status' => $_POST['status']
 			];
-			$_SESSION["flashMessage"]["mobil"] = $this->model("Admin")->add($data['add']);
+			$_SESSION["flashMessage"]["mobil"] = $this->model("Admin")->addMobil($data['add']);
 			header("location: " . BASEURL . "/Admin/index");
 		}
 	}
@@ -92,7 +109,7 @@ class Admin extends Controller
 	public function deleteMobil()
 	{
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			$data['delete'] = $this->model("Admin")->deleteMobil($_POST['id_mobil']);
+			$_SESSION["flashMessage"]["mobil"] = $this->model("Admin")->deleteMobil($_POST['id_mobil']);
 			header("location: " . BASEURL . "/Admin/index");
 		}
 	}
@@ -112,19 +129,21 @@ class Admin extends Controller
 					"conditionEdit" => "id_user = " . $_POST["conditionFk"],
 				],
 			];
+
+			$user = $_POST['user'];
 			unset($_POST["userLevel"]);
 			unset($_POST['username']);
 			unset($_POST['password']);
 			unset($_POST["conditionFk"]);
-
+			unset($_POST["user"]);
 
 			foreach ($_POST as $column => $value) {
 				$data[$column] = $value;
 			}
 
-			$_SESSION["flashMessage"]["$userLevel"] = $this->model("Admin")->edit("$userLevel", $data, $fkData);
+			$_SESSION["flashMessage"]["$userLevel"] = $this->model("Admin")->edit("$user", $data, $fkData);
 			unset($data);
-			header("Location: " . BASEURL . "/Admin/page" . ucfirst($userLevel));
+			header("Location: " . BASEURL . "/Admin/page" . ucfirst($user));
 		}
 	}
 
@@ -132,8 +151,6 @@ class Admin extends Controller
 	{
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$data = [];
-
-			/*receive data that non insertData and unset that*/
 			$userLevel = $_POST['userLevel'];
 			$fkData = [
 				"user" => [
@@ -142,17 +159,32 @@ class Admin extends Controller
 					"level" => strtolower($userLevel)
 				]
 			];
+			$user = $_POST['user'];
 			unset($_POST["userLevel"]);
 			unset($_POST['username']);
 			unset($_POST['password']);
-
+			unset($_POST['user']);
 
 			foreach ($_POST as $column => $value) {
 				$data[$column] = $value;
 			}
 
-			$_SESSION["flashMessage"]["$userLevel"] = $this->model("Admin")->add("$userLevel", $data, $fkData);
+			$_SESSION["flashMessage"]["$user"] = $this->model("Admin")->add("$user", $data, $fkData);
 			unset($data);
+			header("Location: " .  BASEURL . "/Admin/page" . ucfirst($user));
+		}
+	}
+
+	public function deleteUser(): void
+	{
+		if ($_SERVER['REQUEST_METHOD'] == "POST") {
+			$userLevel = $_POST['user'];
+			$idData = intval($_POST['idData']);
+			$idName = $_POST['idName'];
+
+			var_dump($_POST);
+			var_dump($idData . ' bertipe = ' . gettype($idData));
+			$_SESSION["flashMessage"]["$userLevel"] = $this->model("Admin")->delete("$userLevel", $idName, $idData);
 			header("Location: " .  BASEURL . "/Admin/page" . ucfirst($userLevel));
 		}
 	}
@@ -163,7 +195,7 @@ class Admin extends Controller
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
 		$data['add'] = "Karyawan";
-		$data['karyawan'] = $this->model("Karyawan")->getAllKaryawan();
+		$data['karyawan'] = $this->model("Admin")->getAllKaryawan();
 		$this->view("admin/templates/header", $data);
 		$this->view("admin/module/karyawan/index", $data);
 		$this->view("templates/footer");
@@ -171,13 +203,19 @@ class Admin extends Controller
 
 	public function pageEditKaryawan()
 	{
-		$data['title'] = "Admin";
-		$data['style'] = "landingpage";
-		$data['add'] = "Karyawan";
-//		$data['karyawan'] = $this->model("Mobil")->getKaryawan($_POST['id_karyawan']);
-		$this->view("admin/templates/header", $data);
-		$this->view("admin/module/karyawan/edit", $data);
-		$this->view("templates/footer");
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			$_SESSION['admin']['id_karyawan'] = $_POST["id_karyawan"];
+			header("location: " . BASEURL . "/Admin/pageEditKaryawan");
+		} else {
+			$data['title'] = "Admin";
+			$data['style'] = "landingpage";
+			$data['add'] = "Karyawan";
+			$id = $_SESSION['admin']['id_karyawan'];
+			$data['karyawan'] = $this->model("Admin")->getKaryawan();
+			$this->view("admin/templates/header", $data);
+			$this->view("admin/module/karyawan/edit", $data);
+			$this->view("templates/footer");
+		}
 	}
 
 	public function pageAddKaryawan()
@@ -185,42 +223,9 @@ class Admin extends Controller
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
 		$data['add'] = "Karyawan";
-//		$data['karyawan'] = $this->model("Admin")->getKaryawan($_POST['id_karyawan']);
 		$this->view("admin/templates/header", $data);
 		$this->view("admin/module/karyawan/add", $data);
 		$this->view("templates/footer");
-	}
-
-	public function editKaryawan()
-	{
-		if ($_SERVER['REQUEST_METHOD'] == "POST")
-		{
-			$data['title'] = "Admin";
-			$data['style'] = "landingpage";
-			$data['add'] = "Karyawan";
-			$data['edit'] = [
-				'nopol' => $_POST['nopol'],
-				'warna' => $_POST['warna'],
-				'harga' => $_POST['harga'],
-				'status' => $_POST['status'],
-				'id_mobil' => $_POST['mobil']
-			];
-
-			$data['message'] = $this->model("Admin")->edit($data['edit']);
-			$data['mobil'] = $this->model("Mobil")->getMobil($_POST['mobil']);
-			$this->view("admin/templates/header", $data);
-			$this->view("admin/module/" . $_POST['page'], $data);
-			$this->view("templates/footer");
-		}
-	}
-
-	public function deleteKaryawan()
-	{
-		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-//			$data['delete'] = $this->model("Mobil")->delete($_POST['id_mobil']);
-//			setcookie("cek", $_GET['id_mobil'], time() + 1, "/");
-			header("location: " . BASEURL . "/Admin/index");
-		}
 	}
 
 	/*Halaman Pemesanan*/
@@ -229,7 +234,7 @@ class Admin extends Controller
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
 		$data['add'] = "Pemesanan";
-//		$data['pemesanan'] = $this->model("Mobil")->getAllPemesanan();
+		$data['pemesanan'] = $this->model("Admin")->getAllPemesanan();
 		$this->view("admin/templates/header", $data);
 		$this->view("admin/module/pemesanan/index", $data);
 		$this->view("templates/footer");
@@ -240,17 +245,9 @@ class Admin extends Controller
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
 		$data['add'] = "Pemesanan";
-//		$data['pemesanan'] = $this->model("Mobil")->getAllPemesanan();
 		$this->view("admin/templates/header", $data);
 		$this->view("admin/module/pemesanan/add", $data);
 		$this->view("templates/footer");
-	}
-
-	public function deletePemesanan()
-	{
-		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			header("location: " . BASEURL . "/Admin/index");
-		}
 	}
 
 	/*Halaman Pelanggan*/
@@ -259,7 +256,7 @@ class Admin extends Controller
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
 		$data['add'] = "Pelanggan";
-		$data['pelanggan'] = $this->model("Pelanggan")->getAllPelanggan();
+		$data['pelanggan'] = $this->model("Admin")->getAllPelanggan();
 		$this->view("admin/templates/header", $data);
 		$this->view("admin/module/pelanggan/index", $data);
 		$this->view("templates/footer");
@@ -270,7 +267,6 @@ class Admin extends Controller
 		$data['title'] = "Admin";
 		$data['style'] = "landingpage";
 		$data['add'] = "Pelanggan";
-//		$data['pelanggan'] = $this->model("Pelanggan")->getAllPelanggan();
 		$this->view("admin/templates/header", $data);
 		$this->view("admin/module/pelanggan/add", $data);
 		$this->view("templates/footer");
@@ -278,19 +274,18 @@ class Admin extends Controller
 
 	public function pageEditPelanggan()
 	{
-		$data['title'] = "Admin";
-		$data['style'] = "landingpage";
-		$data['add'] = "Pelanggan";
-//		$data['pelanggan'] = $this->model("Pelanggan")->getAllPelanggan();
-		$this->view("admin/templates/header", $data);
-		$this->view("admin/module/pelanggan/edit", $data);
-		$this->view("templates/footer");
-	}
-
-	public function deletePelanggan()
-	{
-		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			header("location: " . BASEURL . "/Admin/index");
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			$_SESSION['admin']['id_pelanggan'] = $_POST['id_pelanggan'];
+			header("location: " . BASEURL . "/Admin/pageEditPelanggan");
+		} else {
+			$data['title'] = "Admin";
+			$data['style'] = "landingpage";
+			$data['add'] = "Pelanggan";
+			$data['pelanggan'] = $this->model("Admin")->getPelanggan();
+			var_dump($_POST['id_pelanggan']);
+			$this->view("admin/templates/header", $data);
+			$this->view("admin/module/pelanggan/edit", $data);
+			$this->view("templates/footer");
 		}
 	}
 }

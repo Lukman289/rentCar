@@ -1,5 +1,9 @@
 <div class="container mt-5">
     <table class="table">
+	    <?php if (isset($_SESSION['flashMessage']['pelanggan'])) {
+		    echo $_SESSION['flashMessage']['pelanggan'];
+		    unset($_SESSION['flashMessage']['pelanggan']);
+	    } ?>
         <thead>
         <tr>
             <th scope="col">No</th>
@@ -21,14 +25,16 @@
                 <td><?=$plg['email']?></td>
                 <td>
                     <div class="button-UD d-flex" style="gap: 8px">
-                        <form action="<?= BASEURL ?>/Admin/pageEditPelanggan" method="POST">
-                            <button type="submit" name="NIP" value="<?= $plg['id_pelanggan'] ?>"
+                        <form action="<?= BASEURL ?>/Admin/pageEditPelanggan" method="post">
+                            <button type="submit" name="id_pelanggan" value="<?= $plg['id_pelanggan'] ?>"
                                     class="btn btn-primary">EDIT
                             </button>
                         </form>
-                        <form action="<?= BASEURL ?>/Admin/deletePelanggan" method="post">
-                            <button class="btn btn-danger"
-                                    onclick="confirm('Hapus Data Dosen?');">DELETE
+                        <form action="<?= BASEURL ?>/Admin/deleteUser" method="post" onsubmit="return confirm('Lanjutkan Hapus Pelanggan?');">
+                            <input type="hidden" name="user" value="pelanggan">
+                            <input type="hidden" name="idName" value="id_pelanggan">
+                            <button type="submit" class="btn btn-danger"
+                                    name="idData" value="<?= $plg['id_pelanggan']?>">DELETE
                             </button>
                         </form>
                     </div>

@@ -1,7 +1,7 @@
 <div class="container mt-5">
 	<div class="card mb-2">
 		<div class="row gx-5">
-			<?php foreach ($data['mobil'] AS $mobil): ?>
+			<?php $mobil = $data['mobil']; ?>
             <div class="col-md-6">
                 <img src="<?=BASEURL?>/img/<?=$mobil['model']?>.jpg" class="img-fluid rounded-start" alt="">
             </div>
@@ -49,7 +49,7 @@
                     </div>
                 </form>
             </div>
-            <?php endforeach;?>
+<!--            --><?php //endforeach;?>
         </div>
     </div>
 </div>

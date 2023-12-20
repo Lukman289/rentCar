@@ -72,7 +72,7 @@ class Database
 			/*return null when error occurred during escaping because database driver is not compatible*/
 			return $data;
 		else
-			return $escapedData;
+			return str_replace("'", "", $escapedData);
 	}
 
 	public function prepare($query): void
@@ -114,5 +114,46 @@ class Database
 	public function lastInsertId(): bool|string
 	{
 		return $this->databaseHandler->lastInsertId();
+	}
+
+	public function inserts($tableName, $insertData = [])
+	{
+		try {
+			$columns = implode(', ', array_keys($insertData));
+			$placeholder = ':' . implode(', :', array_keys($insertData));
+
+			$this->prepare("INSERT INTO $tableName($columns) VALUES($placeholder)");
+
+			foreach ($insertData as $column => $val) {
+				$val = $this->antiDbInjection($val);
+				$this->bind(":$column", $val);
+			}
+			return $this->execute();
+		} catch (PDOException $message) {
+			return false;
+		}
+	}
+
+	public function updates($tableName, array $updateData, $condition)
+	{
+		$setClause = '';
+		foreach ($updateData as $column => $value) {
+			if ($column == "password") {
+				$value = $this->antiDbInjection($value);
+				$setClause .= "password = CONVERT(varbinary(256), '$value'), ";
+				continue;
+			}
+			$setClause .= "$column = :$column, ";
+		}
+		$setClause = rtrim($setClause, ', ');
+		$this->prepare("UPDATE $tableName SET $setClause WHERE $condition");
+		foreach ($updateData as $column => $value) {
+			if ($column == "password") {
+				continue;
+			}
+			$value = $this->antiDbInjection($value);
+			$this->bind(":$column", $value);
+		}
+		return $this->execute();
 	}
 }

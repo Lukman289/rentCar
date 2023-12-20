@@ -32,17 +32,13 @@
                         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Kategori
                         </button>
-                        <form action="" method="post">
+                        <form action="<?=BASEURL?>/Pelanggan/sorting" method="post">
                         <ul class="dropdown-menu">
+                            <?php foreach ($data['kategori'] as $ktg): ?>
                             <li>
-                                <button type="submit" class="dropdown-item" value="Honda" >Honda</button>
+                                <button type="submit" class="dropdown-item" name="kategori_id" value="<?=$ktg['id_kategori']?>"><?=$ktg['kategori']?></button>
                             </li>
-                            <li>
-                                <button type="submit" class="dropdown-item" value="Mitsubishi">Mitsubishi</button>
-                            </li>
-                            <li>
-                                <button type="submit" class="dropdown-item" value="Toyota">Toyota</button>
-                            </li>
+                            <?php endforeach; ?>
                         </ul>
                         </form>
                     </div>
@@ -50,9 +46,5 @@
 			</ul>
 		</nav>
 	</div>
-    <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light" type="submit">Search</button>
-    </form>
 </header>
 <br>

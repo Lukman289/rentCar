@@ -21,16 +21,16 @@
             </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="<?=BASEURL?>/Admin/pageMobil" class="dropdown-item" name="page" value="../index">Mobil</a>
+                        <a href="<?=BASEURL?>/Admin/index" class="dropdown-item">Mobil</a>
                     </li>
                     <li>
-                        <a href="<?=BASEURL?>/Admin/pageKaryawan" class="dropdown-item" name="page" value="../index">Karyawan</a>
+                        <a href="<?=BASEURL?>/Admin/pageKaryawan" class="dropdown-item">Karyawan</a>
                     </li>
                     <li>
-                        <a href="<?=BASEURL?>/Admin/pagePemesanan" class="dropdown-item" name="page" value="../index">Pemesanan</a>
+                        <a href="<?=BASEURL?>/Admin/pagePemesanan" class="dropdown-item">Pemesanan</a>
                     </li>
                     <li>
-                        <a href="<?=BASEURL?>/Admin/pagePelanggan" class="dropdown-item" name="page" value="../index">Pelanggan</a>
+                        <a href="<?=BASEURL?>/Admin/pagePelanggan" class="dropdown-item">Pelanggan</a>
                     </li>
                     <li>
                         <a href="<?=BASEURL?>/Authorization/logout" class="dropdown-item">Sign Out</a>
@@ -38,6 +38,8 @@
                 </ul>
             </form>
         </div>
+	    <?php if ($data['add'] == "Mobil") { ?>
+<!--            <a href="--><?//=BASEURL?><!--/Admin/pageAdd--><?//=$data['add']?><!--" class="btn btn-primary">ADD</a>-->
         <nav>
             <ul class="navigation">
                 <li>
@@ -45,23 +47,20 @@
                         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Kategori
                         </button>
-                        <form action="" method="post">
+                        <form action="<?=BASEURL?>/Admin/sorting" method="post">
                             <ul class="dropdown-menu">
-                                <li>
-                                    <button type="submit" class="dropdown-item" value="Honda" >Honda</button>
-                                </li>
-                                <li>
-                                    <button type="submit" class="dropdown-item" value="Mitsubishi">Mitsubishi</button>
-                                </li>
-                                <li>
-                                    <button type="submit" class="dropdown-item" value="Toyota">Toyota</button>
-                                </li>
+			                    <?php foreach ($data['kategori'] as $ktg): ?>
+                                    <li>
+                                        <button type="submit" class="dropdown-item" name="kategori_id" value="<?=$ktg['id_kategori']?>"><?=$ktg['kategori']?></button>
+                                    </li>
+			                    <?php endforeach; ?>
                             </ul>
                         </form>
                     </div>
                 </li>
             </ul>
         </nav>
+	    <?php } ?>
         <div class="ms-4">
             <form action="<?=BASEURL?>/Admin/module" method="post">
                 <input type="hidden" value="mobil/add" name="page">
@@ -72,8 +71,8 @@
         </div>
     </div>
     <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light" type="submit">Search</button>
+<!--        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--        <button class="btn btn-outline-light" type="submit">Search</button>-->
     </form>
 </header>
 <br>

@@ -9,10 +9,13 @@ class Mobil extends  Controller
 	{
 		if ($_SERVER['REQUEST_METHOD'] == "POST")
 		{
+			$_SESSION['mobil']['mobil_id'] = $_POST['mobil'];
+			header("location: " . BASEURL . "/Mobil/index");
+		} else {
 			$data['title'] = "Deskripsi";
 			$data['style'] = "landingpage";
-//			$data['mobil'] = $_POST['mobil'];
-			$data['mobil'] = $this->model("Mobil")->getMobil($_POST['mobil']);
+			$mobil = $_SESSION['mobil']['mobil_id'];
+			$data['mobil'] = $this->model("Mobil")->getMobil($mobil);
 			$this->view("templates/header", $data);
 			$this->view("mobil/index", $data);
 			$this->view("templates/footer");
