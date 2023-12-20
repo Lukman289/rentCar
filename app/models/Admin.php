@@ -58,7 +58,11 @@ class Admin
 	public function addMobil($addData = [])
 	{
 		/*insert into mobil table*/
-		$this->db->prepare("INSERT INTO mobil(model_id, tahun, nopol, warna, harga_sewa, status) VALUES (:model_id, :tahun, :nopol, :warna, :harga_sewa, :status)");
+		$isInsertSuccess = null;
+		$img = $addData['img'];
+		$addData['img'] = $this->db->storeImage($img);
+
+		$this->db->prepare("INSERT INTO mobil(model_id, tahun, nopol, warna, harga_sewa, status, img) VALUES (:model_id, :tahun, :nopol, :warna, :harga_sewa, :status, :img)");
 
 		$model_id = $this->db->antiDbInjection($addData["id_model"]);
 		$tahun = $this->db->antiDbInjection($addData["tahun"]);
@@ -66,6 +70,7 @@ class Admin
 		$warna = $this->db->antiDbInjection($addData["warna"]);
 		$harga_sewa = $this->db->antiDbInjection($addData["harga_sewa"]);
 		$status = $this->db->antiDbInjection($addData["status"]);
+		$img = $this->db->antiDbInjection($addData['img']);
 
 		/*to bind param, so param not directly used in query and bound in separated way*/
 		$this->db->bind(':model_id', $model_id);
@@ -74,6 +79,7 @@ class Admin
 		$this->db->bind(':warna', $warna);
 		$this->db->bind(':harga_sewa', $harga_sewa);
 		$this->db->bind(':status', $status);
+		$this->db->bind(':img', $img);
 
 		$isInsertSuccess = $this->db->execute();
 		$message = null;

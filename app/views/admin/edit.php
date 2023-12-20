@@ -2,7 +2,7 @@
 	<div class="card mb-3">
 		<div class="row g-0">
 			<div class="col-md-4">
-				<img src="<?=BASEURL?> /img/<?=$data['mobil']?>.jpg" class="img-fluid rounded-start" alt="">
+				<img src="<?=BASEURL?>/img/imgMobil/<?=$mobil['img']?>" class="img-fluid rounded-start" alt="">
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">

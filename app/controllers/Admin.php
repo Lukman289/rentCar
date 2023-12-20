@@ -91,9 +91,7 @@ class Admin extends Controller
 	{
 		if ($_SERVER['REQUEST_METHOD'] == "POST")
 		{
-			$data['title'] = "Admin";
-			$data['style'] = "landingpage";
-			$data['add'] = [
+			$data = [
 				'id_model' => $_POST['id_model'],
 				'tahun' => $_POST['tahun'],
 				'nopol' => $_POST['nopol'],
@@ -101,7 +99,16 @@ class Admin extends Controller
 				'harga_sewa' => $_POST['harga'],
 				'status' => $_POST['status']
 			];
-			$_SESSION["flashMessage"]["mobil"] = $this->model("Admin")->addMobil($data['add']);
+
+			if (isset($_FILES['img'])) {
+				$imageData = [
+					'name' => $_FILES['img']['name'],
+					'tmp_name' => $_FILES['img']['tmp_name']
+				];
+				$data['img'] = $imageData;
+			}
+
+			$_SESSION["flashMessage"]["mobil"] = $this->model("Admin")->addMobil($data);
 			header("location: " . BASEURL . "/Admin/index");
 		}
 	}

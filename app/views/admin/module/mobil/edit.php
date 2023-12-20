@@ -3,7 +3,7 @@
 		<div class="row gx-5">
 			<?php $mobil = $data['mobil']; ?>
             <div class="col-md-6">
-                <img src="<?=BASEURL?>/img/<?=$mobil['model']?>.jpg" class="img-fluid rounded-start" alt="">
+                <img src="<?=BASEURL?>/img/imgMobil/<?=$mobil['img']?>" class="img-fluid rounded-start" alt="">
             </div>
             <div class="col-md-6">
                 <div class="card-body">
@@ -49,7 +49,6 @@
                     </div>
                 </form>
             </div>
-<!--            --><?php //endforeach;?>
         </div>
     </div>
 </div>

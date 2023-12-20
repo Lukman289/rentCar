@@ -19,7 +19,7 @@
 	    foreach ($data['mobil'] as $mobil) :?>
             <div class="col">
                 <div class="card" style="height: auto; width: 18rem">
-                    <img src="<?=BASEURL?>/img/<?=$mobil['model']?>.jpg" class="card-img-top" alt="" style="width: 100%; height: 55%">
+                    <img src="<?=BASEURL?>/img/imgMobil/<?=$mobil['img']?>" class="card-img-top" alt="" style="width: 100%; height: 55%">
                     <div class="card-body">
                         <h5 class="card-title"><?=$mobil['model']?></h5>
                         <ul class="list-group list-group-flush">

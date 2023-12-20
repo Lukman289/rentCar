@@ -1,6 +1,6 @@
 <div class="container mx-auto">
     <div class="card" style="width: 18rem; margin: 5rem auto 5rem auto;">
-        <form action="<?=BASEURL?>/Admin/addMobil" method="post">
+        <form action="<?=BASEURL?>/Admin/addMobil" method="post" enctype="multipart/form-data">
 			<div class="col-md-12">
                 <div>
                     <label for="model" class="form-label">Model
@@ -39,8 +39,7 @@
                 </div>
                 <div>
                     <label for="image" class="form-label">Foto Kendaraan
-                        <input type="file" name="img" accept=".jpg, .jpeg" class="form-control"
-                               value="">
+                        <input type="file" name="img" accept=".jpeg, .jpg, .png" class="form-control">
                     </label>
                 </div>
                 <div>

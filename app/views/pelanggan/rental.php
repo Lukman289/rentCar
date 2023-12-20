@@ -6,7 +6,7 @@
 				<?php $mobil = $data['mobil'];
                     $plgn = $data['pelanggan']?>
                 <div class="col-md-4">
-                    <img src="<?=BASEURL?> /img/<?=$mobil['model']?>.jpg" class="img-fluid rounded-start" alt="">
+                    <img src="<?=BASEURL?>/img/imgMobil/<?=$mobil['img']?>" class="img-fluid rounded-start" alt="">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
