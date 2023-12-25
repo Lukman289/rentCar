@@ -20,7 +20,7 @@
                         <li class="list-group-item"><small class="text-muted">Tahun
                                 : <?=$mobil['tahun']?></small></li>
                         <li class="list-group-item"><small class="text-muted">Harga Sewa
-                                : <?=$mobil['harga_sewa']?></small></li>
+                                : <?= number_format($mobil['harga_sewa'], 0, ',', '.')?></small></li>
                     </ul>
                     <div class="card-body col-10">
                         <div class="row">

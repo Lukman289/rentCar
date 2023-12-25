@@ -5,6 +5,11 @@
 </style>
 
 <div class="containerM">
+    <?php if (isset($_SESSION['flashMessage']['rental'])) {
+        echo $_SESSION['flashMessage']['rental'];
+	    unset($_SESSION['flashMessage']['rental']);
+    }
+    ?>
     <div class="row row-cols-1 row-cols-md-auto g-4">
 	    <?php
 	    if ($data['mobil'] == null ) { ?>

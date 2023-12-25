@@ -218,7 +218,7 @@ class Admin extends Controller
 			$data['style'] = "landingpage";
 			$data['add'] = "Karyawan";
 			$id = $_SESSION['admin']['id_karyawan'];
-			$data['karyawan'] = $this->model("Admin")->getKaryawan();
+			$data['karyawan'] = $this->model("Admin")->getKaryawan($id);
 			$this->view("admin/templates/header", $data);
 			$this->view("admin/module/karyawan/edit", $data);
 			$this->view("templates/footer");
@@ -288,7 +288,8 @@ class Admin extends Controller
 			$data['title'] = "Admin";
 			$data['style'] = "landingpage";
 			$data['add'] = "Pelanggan";
-			$data['pelanggan'] = $this->model("Admin")->getPelanggan();
+			$id = $_SESSION['admin']['id_pelanggan'];
+			$data['pelanggan'] = $this->model("Admin")->getPelanggan($id);
 			var_dump($_POST['id_pelanggan']);
 			$this->view("admin/templates/header", $data);
 			$this->view("admin/module/pelanggan/edit", $data);

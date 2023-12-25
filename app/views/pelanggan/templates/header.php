@@ -20,6 +20,12 @@
             </button>
             <ul class="dropdown-menu">
                 <li>
+                    <a href="<?=BASEURL?>/Pelanggan/index" class="dropdown-item">Home</a>
+                </li>
+                <li>
+                    <a href="<?=BASEURL?>/Pelanggan/pagePesanan" class="dropdown-item">Lihat Pesanan</a>
+                </li>
+                <li>
                     <a href="<?=BASEURL?>/Authorization/logout" class="dropdown-item">Sign Out</a>
                 </li>
             </ul>

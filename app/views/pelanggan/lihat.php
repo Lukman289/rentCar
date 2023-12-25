@@ -16,10 +16,8 @@
                                 : <?=$mobil['warna']?></small></li>
                         <li class="list-group-item"><small class="text-muted">Tahun
                                 : <?=$mobil['tahun']?></small></li>
-                        <li class="list-group-item"><small
-                                    class="text-muted">Deskripsi<br>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium animi corporis dolores et iure iusto
-                                labore laboriosam laborum libero magnam molestias, nobis pariatur quos ratione sit veritatis voluptates. Eius, rem?</small></li>
+                        <li class="list-group-item"><small class="text-muted">Harga
+                                : Rp.<?= number_format($mobil['harga_sewa'], 0, ',', '.')?></small></li>
                     </ul>
                     <div class="card-body text-end">
                         <a href="<?=BASEURL?>/Pelanggan/index" class="btn btn-primary">Kembali</a>

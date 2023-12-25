@@ -17,7 +17,7 @@
 					<li class="list-group-item"><small class="text-muted">Tahun
 							: <?=$mobil['tahun']?></small></li>
                     <li class="list-group-item"><small class="text-muted">Harga
-							: Rp.<?=$mobil['harga_sewa']?></small></li>
+							: Rp.<?= number_format($mobil['harga_sewa'], 0, ',', '.')?></small></li>
 				</ul>
 				<div class="card-body text-end">
 					<a href="<?=BASEURL?>" class="btn btn-primary"">Kembali</a>

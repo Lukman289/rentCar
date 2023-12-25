@@ -28,8 +28,9 @@
                                 </li>
                                 <li class="list-group-item"><small class="text-muted"><?=$mobil['tahun']?></small>
                                 </li>
-                                <li class="list-group-item"><small class="text-muted">Rp.<?=$mobil['harga']?></small>
-                                </li>
+                                <li class="list-group-item"><small class="text-muted">
+                                        Rp.<?= number_format($mobil['harga'], 0, ',', '.')?>
+                                    </small></li>
                             </ul>
                             <div class="card-body text-end">
                                 <button type="submit" value="<?=$mobil['id_mobil']?>" name="mobil" class="btn btn-outline-info">Lihat</button>

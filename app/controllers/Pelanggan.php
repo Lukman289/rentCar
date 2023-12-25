@@ -28,7 +28,7 @@ class Pelanggan extends Controller
 			$kategori = $_SESSION['lp']['kategori_id'];
 			$data['kategori'] = $this->model("Mobil")->getAllKategori();
 			$data['mobil'] = $this->model("Mobil")->getMobilFromKategori($kategori);
-			$this->view("templates/header", $data);
+			$this->view("pelanggan/templates/header", $data);
 			$this->view("pelanggan/index", $data);
 			$this->view("templates/footer");
 		}
@@ -43,7 +43,7 @@ class Pelanggan extends Controller
 			$data['title'] = "Pelanggan";
 			$data['style'] = "landingpage";
 			$id_mobil = $_SESSION['pelanggan']['id_mobil'];
-			$data['mobil'] = $this->model("Mobil")->getMobil($_POST['id_mobil']);
+			$data['mobil'] = $this->model("Mobil")->getMobil($id_mobil);
 			$this->view("pelanggan/templates/header", $data);
 			$this->view("pelanggan/lihat", $data);
 			$this->view("templates/footer");
@@ -84,5 +84,16 @@ class Pelanggan extends Controller
 		} else {
 			$this->index();
 		}
+	}
+
+	public function pagePesanan()
+	{
+		$data['title'] = "Pelanggan";
+		$data['style'] = "landingpage";
+		$data['pelanggan'] = $this->model("Pelanggan")->getPelanggan($_SESSION['username']);
+		$data['pesanan'] = $this->model("Pelanggan")->getPesanan($data['pelanggan']['id_pelanggan']);
+		$this->view("pelanggan/templates/header", $data);
+		$this->view("pelanggan/pesanan", $data);
+		$this->view("templates/footer");
 	}
 }

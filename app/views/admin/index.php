@@ -37,14 +37,14 @@
                             </li>
                             <li class="list-group-item"><small class="text-muted"><?=$mobil['tahun']?></small>
                             </li>
-                            <li class="list-group-item"><small class="text-muted">Rp.<?=$mobil['harga']?></small>
+                            <li class="list-group-item"><small class="text-muted">Rp.<?= number_format($mobil['harga'], 0 ,',', '.')?></small>
                             </li>
                         </ul>
                         <div class="" style="display: flex; gap: 0.5rem; flex-direction: row-reverse;">
                             <form action="<?=BASEURL?>/Admin/pageEditMobil" method="post">
                                 <button type="submit" value="<?=$mobil['id_mobil']?>" name="id_mobil" class="btn btn-outline-primary">Edit</button>
                             </form>
-                            <form action="<?=BASEURL?>/Admin/deleteMobil" method="post" onsubmit="confirm('Lanjutkan Hapus Mobil?')">
+                            <form action="<?=BASEURL?>/Admin/deleteMobil" method="post" onsubmit="return confirm('Lanjutkan Menghapus Data Mobil?')">
                                 <button type="submit" value="<?=$mobil['id_mobil']?>" name="id_mobil" class="btn btn-outline-danger">Delete</button>
                             </form>
                         </div>

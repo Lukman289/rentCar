@@ -24,7 +24,7 @@
             <td><?=$pmsn['model']?></td>
             <td><?=$pmsn['tanggal_pemesanan']?></td>
             <td><?=$pmsn['tanggal_pengembalian']?></td>
-            <td><?=$pmsn['jumlah_pembayaran']?></td>
+            <td><?= number_format($pmsn['jumlah_pembayaran'], 0 ,',', '.')?></td>
             <td>
                 <div class="button-UD d-flex" style="gap: 8px">
                     <form action="<?= BASEURL ?>/Admin/deleteUser" method="post" onsubmit="return confirm('Lanjutkan Hapus Pemesanan?');">
